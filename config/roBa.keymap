@@ -78,14 +78,20 @@
             #binding-cells = <2>;
             tapping-term-ms = <200>;
 
-            default_layer {
-                bindings = <
-                    &kpls EQUAL    // 通常は = を出力するが、JISレイアウトでは _ (JISレイアウトでの = に対応)を出力する
-                    &tog_ls        // レイアウトシフトのオン/オフを切り替える
-                    &tog_ls_on     // レイアウトシフトをオンにする
-                    &tog_ls_off    // レイアウトシフトをオフにする
-                >;
+            // ZMK コア用に元の kp を保持
+            original_key_press: original_key_press {
+                compatible = "zmk,behavior-key-press";
+                #binding-cells = <1>;
+                label = "KEY_PRESS";
             };
+    
+            // &kp を layout-shift 対応版に差し替え
+            kp: key_press {
+                compatible = "zmk,behavior-layout-shift-key-press";
+                #binding-cells = <1>;
+                label = "LAYOUT_SHIFT_KEY_PRESS";
+            };
+
 
         };
     };
